@@ -1,45 +1,19 @@
-from flask import Flask, request, blueprints
-from flask_jwt_extended import JWTManager
-import requests
-# import pandas as pd
-
-
-# def create_app():
-#     app = Flask(__name__)
-#
-#     return app
-
-
 """
-Setup the app
+    Set up the flask app
 """
-
-# from werkzeug.debug import get_current_traceback
-from flask import (
-    Flask, jsonify, request, current_app, g)
-# from flask_sqlalchemy import SQLAlchemy
-from pymongo import MongoClient
-# from flask_marshmallow import Marshmallow
+from flask import Flask, jsonify, request, current_app, g
 from flask_jwt_extended import JWTManager
-# from flask_migrate import Migrate
-# from flask_caching import Cache
-
 
 # Define the WSGI application object
 flaskapp = Flask(__name__)
 # declare the extensions
-# db = SQLAlchemy()
-# ma = Marshmallow()
 jwt = JWTManager()
-# mig = Migrate()
-# cache = Cache()
 
 
 def create_app(config):
     """
     Function that creates the app.
     """
-
     # global app object, configure it!
     flaskapp.config.from_object(config)
 
@@ -48,7 +22,6 @@ def create_app(config):
     configure_apis(flaskapp)
 
     return flaskapp
-
 
 
 def configure_extensions(app, socket=False, main=True):
@@ -180,10 +153,10 @@ def configure_apis(app):
     """
 
     # blogs details apis
-    from app.core.api import blog
-    app.register_blueprint(blog)
-    from app.auth.api import admin
-    app.register_blueprint(admin)
+    from app.core.api import blog as blogs_module
+    app.register_blueprint(blogs_module)
+    from app.auth.app import admin as admin_module
+    app.register_blueprint(admin_module)
 
 
 def errors_50x(error, dont_send=False):
