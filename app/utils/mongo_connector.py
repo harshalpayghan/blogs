@@ -34,7 +34,7 @@ class MongoConnector:
         except Exception as e:
             print("error occurred while generic_selection")
             print(str(e))
-            return None
+            raise e
 
     def generic_selection_one(self, database_name=None, table_name=None, query=None):
         """
@@ -58,7 +58,7 @@ class MongoConnector:
         except Exception as e:
             print("error occurred while generic_selection")
             print(str(e))
-            return None
+            raise e
 
     def generic_insert_one(self, database_name=None, table_name=None, data=None):
         """
@@ -74,11 +74,11 @@ class MongoConnector:
             collection = db[table_name]
             if isinstance(data, dict):
                 collection.insert_one(data)
-            return None
+                return None
         except Exception as e:
             print("error occurred while inserting data")
             print(str(e))
-            return None
+            raise e
 
     def generic_insert_many(self, database_name=None, table_name=None, data=None):
         """
@@ -100,7 +100,7 @@ class MongoConnector:
         except Exception as e:
             print("error occurred while inserting data")
             print(str(e))
-            return None
+            raise e
 
     def generic_update(self, database_name=None, table_name=None, selection_criteria=None, update_data=None):
         """
@@ -126,4 +126,4 @@ class MongoConnector:
         except Exception as e:
             print("error occurred while inserting data")
             print(str(e))
-            return None
+            raise e
